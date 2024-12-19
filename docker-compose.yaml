@@ -12,3 +12,14 @@ services:
   amqp:
     image: rabbitmq
     hostname: amqp.kz
+
+  kz:
+    image: kz
+    hostname: kz.kz
+    build:
+      context: ./kazoo
+      cache_from:
+        - centos:7
+    volumes:
+      - ./kazoo/config.ini:/etc/kazoo/core/config.ini
+      - ./kazoo/sys.config:/etc/kazoo/core/sys.config
