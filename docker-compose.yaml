@@ -14,23 +14,15 @@ services:
     hostname: amqp.kz
 
   kz:
-    image: kz
+    image: ${PREFIX}kazoo
     hostname: kz.kz
-    build:
-      context: ./kazoo
-      cache_from:
-        - centos:7
     volumes:
       - ./kazoo/config.ini:/etc/kazoo/core/config.ini
       - ./kazoo/sys.config:/etc/kazoo/core/sys.config
 
   kama:
-    image: kama
+    image: ${PREFIX}kamailio
     hostname: kama.kz
-    build:
-      context: ./kamailio
-      cache_from:
-        - centos:7
     environment:
       AMQP_URL: amqp://guest:guest@amqp.kz:5672
     volumes:
@@ -38,9 +30,5 @@ services:
       - ./kamailio/kazoo-kamailio:/sbin/kazoo-kamailio
 
   fs-kz:
-    image: fs
+    image: ${PREFIX}freeswitch
     hostname: fs-kz.kz
-    build:
-      context: ./freeswitch
-      cache_from:
-        - centos:7
