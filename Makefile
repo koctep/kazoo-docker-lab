@@ -25,7 +25,7 @@ image-create/%: image-create/$(BASE_IMAGE) force
 	docker build --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(PREFIX)$* $*
 
 image-rm/%: force
-	docker image rm $(PREFIX)$* || exit 0
+	docker image rm -f $(PREFIX)$* || exit 0
 
 image-update/%: image-rm/% image-create/%
 	@echo updated $*
@@ -33,8 +33,15 @@ image-update/%: image-rm/% image-create/%
 .env:
 	echo "PREFIX=$(PREFIX)" > .env
 
-docker-prune: $(call tasks,image-rm) force
+init-kz: force
+	docker compose exec kz sup kazoo_apps_maintenance start ecallmgr
+	docker compose exec kz sup kazoo_apps_maintenance start konami
+	docker compose exec kz sup crossbar_maintenance create_account kazoo kazoo kazoo kazoo || exit 0
+	docker compose exec kz sup ecallmgr_maintenance add_fs_node freeswitch@fs-kz.kz
+
+docker-prune: $(call tasks,image-rm) image-rm/base force
 	docker compose rm -f -v -s || exit 0
+	docker system prune -f || exit 0
 	docker system prune -f || exit 0
 
 task/$(PREFIX)%: force
