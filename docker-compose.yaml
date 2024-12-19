@@ -1,0 +1,14 @@
+name: konami
+
+networks:
+  default:
+    driver: bridge
+
+services:
+  couchdb:
+    image: couchdb:2.3
+    hostname: db.kz
+
+  amqp:
+    image: rabbitmq
+    hostname: amqp.kz
