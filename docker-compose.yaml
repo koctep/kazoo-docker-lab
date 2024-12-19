@@ -23,3 +23,16 @@ services:
     volumes:
       - ./kazoo/config.ini:/etc/kazoo/core/config.ini
       - ./kazoo/sys.config:/etc/kazoo/core/sys.config
+
+  kama:
+    image: kama
+    hostname: kama.kz
+    build:
+      context: ./kamailio
+      cache_from:
+        - centos:7
+    environment:
+      AMQP_URL: amqp://guest:guest@amqp.kz:5672
+    volumes:
+      - ./kamailio/local.cfg:/etc/kazoo/kamailio/local.cfg
+      - ./kamailio/kazoo-kamailio:/sbin/kazoo-kamailio
