@@ -2,7 +2,10 @@ services:
   kz:
     image: ${PREFIX}kazoo
     hostname: kz.kz
-    volumes:
-      - ./kazoo/config.ini:/etc/kazoo/core/config.ini
-      - ./kazoo/sys.config:/etc/kazoo/core/sys.config
-      - ./kazoo/init.sh:/usr/local/bin/init.sh
+    networks:
+      default:
+        ipv4_address: 172.17.18.3
+    post_start:
+      - command: init.sh
+    pre_stop:
+      - command: sup init stop
