@@ -1,0 +1,4 @@
+services:
+  couchdb:
+    image: couchdb:2.3
+    hostname: db.kz

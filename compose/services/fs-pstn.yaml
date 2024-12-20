@@ -1,0 +1,9 @@
+services:
+  fs-pstn:
+    image: ${PREFIX}freeswitch
+    hostname: fs-pstn.kz
+    volumes:
+      - ${ROOT_DIR}/etc/freeswitch/pstn:/etc/kazoo/freeswitch
+    networks:
+      default:
+        ipv4_address: 172.17.18.2

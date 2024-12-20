@@ -1,34 +1,11 @@
 name: konami
 
-networks:
-  default:
-    driver: bridge
-
-services:
-  couchdb:
-    image: couchdb:2.3
-    hostname: db.kz
-
-  amqp:
-    image: rabbitmq
-    hostname: amqp.kz
-
-  kz:
-    image: ${PREFIX}kazoo
-    hostname: kz.kz
-    volumes:
-      - ./kazoo/config.ini:/etc/kazoo/core/config.ini
-      - ./kazoo/sys.config:/etc/kazoo/core/sys.config
-
-  kama:
-    image: ${PREFIX}kamailio
-    hostname: kama.kz
-    environment:
-      AMQP_URL: amqp://guest:guest@amqp.kz:5672
-    volumes:
-      - ./kamailio/local.cfg:/etc/kazoo/kamailio/local.cfg
-      - ./kamailio/kazoo-kamailio:/sbin/kazoo-kamailio
-
-  fs-kz:
-    image: ${PREFIX}freeswitch
-    hostname: fs-kz.kz
+include:
+  - ./compose/networks.yaml
+  - ./compose/services/couchdb.yaml
+  - ./compose/services/amqp.yaml
+  - ./compose/services/kama.yaml
+  - ./compose/services/kz.yaml
+  - ./compose/services/fs-kz.yaml
+  - ./compose/services/fs-devices.yaml
+  - ./compose/services/fs-pstn.yaml

@@ -1,0 +1,6 @@
+services:
+  fs-devices:
+    image: ${PREFIX}freeswitch
+    hostname: fs-devices.kz
+    volumes:
+      - ${ROOT_DIR}/etc/freeswitch/devices:/etc/kazoo/freeswitch

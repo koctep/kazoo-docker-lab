@@ -31,13 +31,11 @@ image-update/%: image-rm/% image-create/%
 	@echo updated $*
 
 .env:
-	echo "PREFIX=$(PREFIX)" > .env
+	echo "ROOT_DIR=$(PWD)" > .env
+	echo "PREFIX=$(PREFIX)" >> .env
 
 init-kz: force
-	docker compose exec kz sup kazoo_apps_maintenance start ecallmgr
-	docker compose exec kz sup kazoo_apps_maintenance start konami
-	docker compose exec kz sup crossbar_maintenance create_account kazoo kazoo kazoo kazoo || exit 0
-	docker compose exec kz sup ecallmgr_maintenance add_fs_node freeswitch@fs-kz.kz
+	docker compose exec kz init.sh
 
 docker-prune: $(call tasks,image-rm) image-rm/base force
 	docker compose rm -f -v -s || exit 0
