@@ -2,3 +2,5 @@ services:
   fs-kz:
     image: ${PREFIX}freeswitch
     hostname: fs-kz.kz
+    pre_stop:
+      - command: fs_cli -x shutdown
