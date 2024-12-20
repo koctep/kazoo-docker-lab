@@ -4,3 +4,5 @@ services:
     hostname: fs-devices.kz
     volumes:
       - ${ROOT_DIR}/etc/freeswitch/devices:/etc/kazoo/freeswitch
+    pre_stop:
+      - command: fs_cli -x shutdown
