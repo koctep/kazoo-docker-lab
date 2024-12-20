@@ -1,0 +1,70 @@
+{
+  "data": {
+    "apps": {},
+    "call_forward": {
+      "substitute": true,
+      "enabled": false,
+      "failover": false,
+      "require_keypress": false,
+      "keep_caller_id": false,
+      "direct_calls_only": false,
+      "ignore_early_media": true
+    },
+    "call_restriction": {
+      "closed_groups": {
+        "action": "inherit"
+      },
+      "tollfree_us": {
+        "action": "inherit"
+      },
+      "toll_us": {
+        "action": "inherit"
+      },
+      "emergency": {
+        "action": "inherit"
+      },
+      "caribbean": {
+        "action": "inherit"
+      },
+      "did_us": {
+        "action": "inherit"
+      },
+      "international": {
+        "action": "inherit"
+      },
+      "unknown": {
+        "action": "inherit"
+      }
+    },
+    "hotdesk": {
+      "enabled": false,
+      "id": "",
+      "require_pin": false,
+      "keep_logged_in_elsewhere": false
+    },
+    "contact_list": {
+      "exclude": false
+    },
+    "priv_level": "user",
+    "music_on_hold": {},
+    "username": "ext1000",
+    "first_name": "1000",
+    "last_name": "ext",
+    "email": "1000@ext",
+    "vm_to_email_enabled": true,
+    "verified": false,
+    "enabled": true,
+    "record_call": false,
+    "coilpipe": {
+      "state_follow_registration": false
+    },
+    "ui_metadata": {
+      "version": "4.3.0",
+      "ui": "monster-ui",
+      "origin": "callflows"
+    },
+    "require_password_update": false,
+    "ringtones": {},
+    "id": "ce91355b13fb3e71b3234e882ea1a16d"
+  }
+}

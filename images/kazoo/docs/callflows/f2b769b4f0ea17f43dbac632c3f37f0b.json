@@ -1,0 +1,31 @@
+{
+  "data": {
+    "flow": {
+      "data": {
+        "id": "ce91355b13fb3e71b3234e882ea1a16d",
+        "timeout": 20,
+        "can_call_self": false,
+        "delay": 0,
+        "strategy": "simultaneous"
+      },
+      "module": "user",
+      "children": {}
+    },
+    "numbers": [
+      "1000"
+    ],
+    "ui_metadata": {
+      "version": "4.3.0",
+      "ui": "monster-ui",
+      "origin": "callflows"
+    },
+    "patterns": [],
+    "metadata": {
+      "ce91355b13fb3e71b3234e882ea1a16d": {
+        "name": "1000 ext",
+        "pvt_type": "user"
+      }
+    },
+    "id": "f2b769b4f0ea17f43dbac632c3f37f0b"
+  }
+}
