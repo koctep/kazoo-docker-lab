@@ -1,0 +1,4 @@
+services:
+  amqp:
+    image: rabbitmq
+    hostname: amqp.kz

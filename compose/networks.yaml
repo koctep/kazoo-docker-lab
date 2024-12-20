@@ -1,0 +1,8 @@
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.17.18.0/27
+          gateway: 172.17.18.1
+          ip_range: 172.17.18.16/28
