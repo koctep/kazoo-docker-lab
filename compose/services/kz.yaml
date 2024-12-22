@@ -9,3 +9,8 @@ services:
       - command: init.sh
     pre_stop:
       - command: sup init stop
+    logging:
+      driver: "syslog"
+      options:
+        syslog-address: "udp://172.17.18.4"
+        tag: kazoo
