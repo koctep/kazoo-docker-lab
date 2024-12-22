@@ -34,19 +34,19 @@ image-update/%: image-rm/% image-create/%
 	echo "ROOT_DIR=$(PWD)" > .env
 	echo "PREFIX=$(PREFIX)" >> .env
 
-init-kz: force
-	docker compose exec kz init.sh
+device/originate: FROM ?= ext1000
+device/originate: TO ?= 1001
+device/originate: force
+	docker compose exec fs-devices \
+		fs_cli -x 'bgapi originate sofia/gateway/device.$(FROM)/$(TO)@kama.kz play XML inbound'
+
+connect/%: RUN = bash
+connect/%:
+	docker compose exec -it $* $(RUN)
 
 docker-prune: $(call tasks,image-rm) image-rm/base force
 	docker compose rm -f -v -s || exit 0
 	docker system prune -f || exit 0
 	docker system prune -f || exit 0
-
-task/$(PREFIX)%: force
-	echo run $*
-
-t: force
-	@echo $(components)
-	@echo $(images)
 
 force:
