@@ -1,0 +1,6 @@
+<include>
+  <X-PRE-PROCESS cmd="db" data="insert/devices/1000/true"/>
+  <X-PRE-PROCESS cmd="db" data="insert/devices/1001/true"/>
+  <X-PRE-PROCESS cmd="db" data="insert/devices/1002/true"/>
+</include>
+
