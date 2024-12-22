@@ -26,6 +26,8 @@ AUTH_TOKEN=$($CURL/user_auth \
   | jq -r '.auth_token')
 ACCOUNT_ID=$(jq -Rr 'split(".") | .[1] | @base64d | fromjson | .account_id' <<< $AUTH_TOKEN)
 
+$CURL/resrouces -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@/usr/local/kazoo/docs/psnt.json
+
 CURL=$CURL/accounts/$ACCOUNT_ID
 $CURL/phone_numbers/15005005050 -X PUT -H "X-Auth-Token: $AUTH_TOKEN" | jq
 $CURL/metaflows -X POST -H "X-Auth-Token: $AUTH_TOKEN" \

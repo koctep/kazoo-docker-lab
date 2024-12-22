@@ -20,12 +20,12 @@
       "origin": "callflows"
     },
     "patterns": [],
-    "id": "40582c3195486c50f2148db085d91012",
     "metadata": {
       "508a6c84e0b5ed1e70d32229410185a8": {
         "name": "1001 ext",
         "pvt_type": "user"
       }
-    }
+    },
+    "id": "40582c3195486c50f2148db085d91012"
   }
 }
