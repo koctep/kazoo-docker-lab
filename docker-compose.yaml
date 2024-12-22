@@ -2,6 +2,7 @@ name: konami
 
 include:
   - ./compose/networks.yaml
+  - ./compose/services/syslog.yaml
   - ./compose/services/couchdb.yaml
   - ./compose/services/amqp.yaml
   - ./compose/services/kama.yaml

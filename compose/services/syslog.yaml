@@ -1,0 +1,10 @@
+services:
+  syslog:
+    image: rsyslog/syslog_appliance_alpine
+    hostname: syslog.kz
+    volumes:
+      - ${ROOT_DIR}/log:/log
+      - ${ROOT_DIR}/etc/syslog/rsyslog.conf:/etc/rsyslog.conf
+    networks:
+      default:
+        ipv4_address: 172.17.18.4
