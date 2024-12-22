@@ -2,3 +2,8 @@ services:
   couchdb:
     image: couchdb:2.3
     hostname: db.kz
+    logging:
+      driver: "syslog"
+      options:
+        syslog-address: "udp://172.17.18.4"
+        tag: couchdb

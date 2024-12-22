@@ -9,3 +9,8 @@ services:
         ipv4_address: 172.17.18.2
     pre_stop:
       - command: fs_cli -x shutdown
+    logging:
+      driver: "syslog"
+      options:
+        syslog-address: "udp://172.17.18.4"
+        tag: pstn

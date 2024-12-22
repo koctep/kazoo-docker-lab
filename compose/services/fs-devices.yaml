@@ -6,3 +6,8 @@ services:
       - ${ROOT_DIR}/etc/freeswitch/devices:/etc/kazoo/freeswitch
     pre_stop:
       - command: fs_cli -x shutdown
+    logging:
+      driver: "syslog"
+      options:
+        syslog-address: "udp://172.17.18.4"
+        tag: devices
