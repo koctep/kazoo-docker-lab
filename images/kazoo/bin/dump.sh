@@ -8,6 +8,10 @@ AUTH_TOKEN=$($CURL/user_auth \
   -d"{\"data\":{\"account_name\":\"kazoo\",\"credentials\":\"$CREDS\"}}" \
   | jq -r '.auth_token')
 ACCOUNT_ID=$(jq -Rr 'split(".") | .[1] | @base64d | fromjson | .account_id' <<< $AUTH_TOKEN)
+
+$CURL/resources/pstn -H "X-Auth-Token: $AUTH_TOKEN" | jq '{data: .data}' \
+  > /usr/local/kazoo/docs/psnt.json
+
 CURL=$CURL/accounts/$ACCOUNT_ID
 
 TYPES='devices callflows users'

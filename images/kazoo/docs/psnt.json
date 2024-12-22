@@ -1,0 +1,28 @@
+{
+  "data": {
+    "name": "PSTN",
+    "gateways": [
+      {
+        "server": "172.17.18.2",
+        "channel_selection": "ascending",
+        "enabled": true,
+        "endpoint_type": "sip",
+        "force_port": false,
+        "invite_format": "route",
+        "port": 5060,
+        "skype_rr": true
+      }
+    ],
+    "emergency": false,
+    "enabled": true,
+    "flags": [],
+    "from_account_realm": false,
+    "grace_period": 5,
+    "rules": [
+      "^\\+?1(500.{7})$"
+    ],
+    "rules_test": [],
+    "weight_cost": 50,
+    "id": "pstn"
+  }
+}

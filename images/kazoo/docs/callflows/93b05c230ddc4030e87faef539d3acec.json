@@ -1,0 +1,20 @@
+{
+  "data": {
+    "numbers": [
+      "no_match"
+    ],
+    "flow": {
+      "module": "offnet",
+      "data": {
+        "caller_id_type": "external",
+        "ignore_early_media": false,
+        "outbound_flags": [],
+        "use_local_resources": true
+      },
+      "children": {}
+    },
+    "patterns": [],
+    "id": "93b05c230ddc4030e87faef539d3acec",
+    "metadata": {}
+  }
+}
