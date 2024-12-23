@@ -1,12 +1,11 @@
 name: konami
 
 include:
-  - ./compose/networks.yaml
-  - ./compose/services/syslog.yaml
-  - ./compose/services/couchdb.yaml
-  - ./compose/services/amqp.yaml
-  - ./compose/services/kama.yaml
-  - ./compose/services/kz.yaml
-  - ./compose/services/fs-kz.yaml
-  - ./compose/services/fs-devices.yaml
-  - ./compose/services/fs-pstn.yaml
+  - ./docker/networks.yaml
+  - ./docker/services/syslog.yaml
+  - ./docker/services/couchdb.yaml
+  - ./docker/services/amqp.yaml
+  - ./docker/services/kama.yaml
+  - ./docker/services/kz.yaml
+  - ./docker/services/fs-kz.yaml
+  - ./docker/services/fs-devices.yaml
