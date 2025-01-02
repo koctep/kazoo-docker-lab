@@ -2,6 +2,8 @@ name: konami
 
 include:
   - ./docker/networks.yaml
+  - ./docker/services/prometheus.yaml
+  - ./docker/services/grafana.yaml
   - ./docker/services/syslog.yaml
   - ./docker/services/couchdb.yaml
   - ./docker/services/amqp.yaml

@@ -7,6 +7,10 @@ define tasks
 $(foreach image, $(components), $(1)/$(image))
 endef
 
+FROM ?= ext1000
+TO ?= 1001
+ORIGINATE_CMD = bgapi originate sofia/gateway/device.$(FROM)/$(TO)@kama.kz play XML inbound
+
 run: env force
 	docker compose up
 
@@ -14,7 +18,21 @@ start: env force
 	docker compose create
 	docker compose start
 
+stop: force
+	docker compose stop
+
+ps: force
+	docker compose ps
+
+wait-for-regs: start force
+	$(MAKE) connect/fs-devices RUN='fs_cli -x "sofia profile devices register all"'
+	$(MAKE) connect/fs-devices RUN='wait-for-regs.sh'
+
 env: images-create .env
+
+env-rm: force
+	docker compose stop || exit 0
+	docker compose rm -f || exit 0
 
 images-create: $(call tasks,image-update) force
 
@@ -38,14 +56,12 @@ image-update/%: image-rm/% image-create/%
 	echo "ROOT_DIR=$(PWD)" > .env
 	echo "PREFIX=$(PREFIX)" >> .env
 
-device/originate: FROM ?= ext1000
-device/originate: TO ?= 1001
 device/originate: force
-	docker compose exec fs-devices \
-		fs_cli -x 'bgapi originate sofia/gateway/device.$(FROM)/$(TO)@kama.kz play XML inbound'
+	docker compose exec fs-devices $(ORIGINATE_CMD)
 
+connect/fs-devices: RUN = fs_cli
 connect/%: RUN = bash
-connect/%:
+connect/%: force
 	docker compose exec -it $* $(RUN)
 
 docker-prune: $(call tasks,image-rm) image-rm/base force
@@ -54,3 +70,5 @@ docker-prune: $(call tasks,image-rm) image-rm/base force
 	docker system prune -f || exit 0
 
 force:
+
+-include Makefile.custom
