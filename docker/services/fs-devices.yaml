@@ -4,6 +4,8 @@ services:
     hostname: fs-devices.kz
     volumes:
       - ${ROOT_DIR}/etc/freeswitch/devices:/etc/kazoo/freeswitch
+    post_start:
+      - command: wait-for-regs.sh
     pre_stop:
       - command: fs_cli -x shutdown
     logging:
