@@ -1,20 +1,12 @@
 services:
   kz:
-    image: ${PREFIX}kazoo
+    extends:
+      file: ${ROOT_DIR}/src/roles/kazoo-apps.yaml
+      service: role-kazoo-apps
     hostname: kz.kz
-    networks:
-      default:
-        ipv4_address: 172.17.18.3
     post_start:
       - command: init.sh
-    pre_stop:
-      - command: sup init stop
     volumes:
       - ${ROOT_DIR}/docker/images/kazoo/etc/:/etc/kazoo/core/
       - ${ROOT_DIR}/docker/services/kz/bin/:/usr/local/bin/
       - ${ROOT_DIR}/docker/services/kz/docs/:/usr/local/kazoo/docs/
-    logging:
-      driver: "syslog"
-      options:
-        syslog-address: "udp://172.17.18.4"
-        tag: kazoo

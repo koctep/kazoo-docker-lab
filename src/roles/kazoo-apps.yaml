@@ -1,0 +1,8 @@
+services:
+  role-kazoo-apps:
+    image: ${PREFIX}kazoo
+    pre_stop:
+      - command: sup init stop
+    extends:
+      file: ${ROOT_DIR}/src/logging.yaml
+      service: logging

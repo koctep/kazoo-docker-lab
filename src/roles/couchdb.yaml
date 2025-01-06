@@ -1,0 +1,6 @@
+services:
+  role-couchdb:
+    image: couchdb:2.3
+    extends:
+      file: ${ROOT_DIR}/src/logging.yaml
+      service: logging

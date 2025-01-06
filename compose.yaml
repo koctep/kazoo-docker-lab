@@ -1,0 +1,14 @@
+name: konami
+
+include:
+  - ./src/networks.yaml
+  - ./src/services/prometheus.yaml
+  - ./src/services/grafana.yaml
+  - ./src/services/syslog.yaml
+  - ./src/services/couchdb.yaml
+  - ./src/services/amqp.yaml
+  - ./src/services/kama.yaml
+  - ./src/services/kz.yaml
+#  - ./src/services/kz1.yaml
+  - ./src/services/fs-kz.yaml
+  - ./src/services/fs-devices.yaml

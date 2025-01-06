@@ -1,11 +1,6 @@
 services:
   kama:
-    image: ${PREFIX}kamailio
+    extends:
+      file: ${ROOT_DIR}/src/roles/kamailio.yaml
+      service: role-kamailio
     hostname: kama.kz
-    environment:
-      AMQP_URL: amqp://guest:guest@amqp.kz:5672
-    logging:
-      driver: "syslog"
-      options:
-        syslog-address: "udp://172.17.18.4"
-        tag: kamailio

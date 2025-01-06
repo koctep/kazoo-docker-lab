@@ -1,9 +1,6 @@
 services:
   amqp:
-    image: rabbitmq
+    extends:
+      file: ${ROOT_DIR}/src/roles/amqp.yaml
+      service: role-amqp
     hostname: amqp.kz
-    logging:
-      driver: "syslog"
-      options:
-        syslog-address: "udp://172.17.18.4"
-        tag: amqp

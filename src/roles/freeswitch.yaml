@@ -1,0 +1,8 @@
+services:
+  role-freeswitch:
+    image: ${PREFIX}freeswitch
+    pre_stop:
+      - command: fs_cli -x shutdown
+    extends:
+      file: ${ROOT_DIR}/src/logging.yaml
+      service: logging

@@ -1,0 +1,6 @@
+services:
+  role-amqp:
+    image: rabbitmq
+    extends:
+      file: ${ROOT_DIR}/src/logging.yaml
+      service: logging

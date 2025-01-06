@@ -1,9 +1,6 @@
 services:
   couchdb:
-    image: couchdb:2.3
+    extends:
+      file: ${ROOT_DIR}/src/roles/couchdb.yaml
+      service: role-couchdb
     hostname: db.kz
-    logging:
-      driver: "syslog"
-      options:
-        syslog-address: "udp://172.17.18.4"
-        tag: couchdb

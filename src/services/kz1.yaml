@@ -1,0 +1,6 @@
+services:
+  kz1:
+    extends:
+      file: ${ROOT_DIR}/src/roles/kazoo-apps.yaml
+      service: role-kazoo-apps
+    hostname: kz1.kz

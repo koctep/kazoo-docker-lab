@@ -2,12 +2,10 @@ services:
   grafana:
     image: grafana/grafana-oss
     hostname: grafana.kz
-    logging:
-      driver: "syslog"
-      options:
-        syslog-address: "udp://172.17.18.4"
-        tag: grafana
     volumes:
       - ${ROOT_DIR}/etc/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/rabbitmq.yaml
       - ${ROOT_DIR}/etc/grafana/datasources.yml:/etc/grafana/provisioning/datasources/prometheus.yaml
       - ${ROOT_DIR}/etc/grafana/dashboards:/dashboards
+    extends:
+      file: ${ROOT_DIR}/src/logging.yaml
+      service: logging

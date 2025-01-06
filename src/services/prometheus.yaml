@@ -2,10 +2,8 @@ services:
   prometheus:
     image: prom/prometheus
     hostname: prometheus.kz
-    logging:
-      driver: "syslog"
-      options:
-        syslog-address: "udp://172.17.18.4"
-        tag: prometheus
     volumes:
       - ${ROOT_DIR}/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    extends:
+      file: ${ROOT_DIR}/src/logging.yaml
+      service: logging

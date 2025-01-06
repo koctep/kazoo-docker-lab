@@ -1,6 +1,6 @@
 PREFIX ?= kz-
 BASE_IMAGE := $(PREFIX)base
-components := $(shell for f in $$(ls -1 docker/images/*/Dockerfile | grep -v '^base'); do basename $$(dirname $$f); done)
+components := $(shell for f in $$(ls -1 src/images/*/Dockerfile | grep -v '^base'); do basename $$(dirname $$f); done)
 images := $(foreach component, $(components), $(PREFIX)$(component))
 
 define tasks
@@ -10,6 +10,11 @@ endef
 FROM ?= ext1000
 TO ?= 1001
 ORIGINATE_CMD = bgapi originate sofia/gateway/device.$(FROM)/$(TO)@kama.kz play XML inbound
+
+TEST ?= internal-calls
+ifneq ($(TEST),)
+include tests/$(TEST).mk
+endif
 
 run: env force
 	docker compose up
@@ -41,10 +46,10 @@ images-rm: $(call tasks,image-rm) force
 images-update: $(call tasks,image-update) force
 
 image-create/$(BASE_IMAGE): force
-	docker inspect $(BASE_IMAGE) >/dev/null || docker build -t $(BASE_IMAGE) docker/images/base
+	docker inspect $(BASE_IMAGE) >/dev/null || docker build -t $(BASE_IMAGE) src/images/base
 image-create/%: image-create/$(BASE_IMAGE) force
 	docker inspect $(PREFIX)$* >/dev/null || \
-	docker build --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(PREFIX)$* docker/images/$*
+	docker build --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(PREFIX)$* src/images/$*
 
 image-rm/%: force
 	docker image rm -f $(PREFIX)$* || exit 0
