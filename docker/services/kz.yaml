@@ -9,6 +9,10 @@ services:
       - command: init.sh
     pre_stop:
       - command: sup init stop
+    volumes:
+      - ${ROOT_DIR}/docker/images/kazoo/etc/:/etc/kazoo/core/
+      - ${ROOT_DIR}/docker/services/kz/bin/:/usr/local/bin/
+      - ${ROOT_DIR}/docker/services/kz/docs/:/usr/local/kazoo/docs/
     logging:
       driver: "syslog"
       options:

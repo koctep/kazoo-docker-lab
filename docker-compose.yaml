@@ -9,5 +9,6 @@ include:
   - ./docker/services/amqp.yaml
   - ./docker/services/kama.yaml
   - ./docker/services/kz.yaml
+#  - ./docker/services/kz1.yaml
   - ./docker/services/fs-kz.yaml
   - ./docker/services/fs-devices.yaml
