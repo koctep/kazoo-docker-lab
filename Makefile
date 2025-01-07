@@ -12,9 +12,7 @@ TO ?= 1001
 ORIGINATE_CMD = bgapi originate sofia/gateway/device.$(FROM)/$(TO)@kama.kz play XML inbound
 
 TEST ?= internal-calls
-ifneq ($(TEST),)
 include tests/$(TEST).mk
-endif
 
 run: env force
 	docker compose up
@@ -25,6 +23,10 @@ start: env force
 
 stop: force
 	docker compose stop
+
+init: env force
+	$(MAKE) wait-for-regs
+	$(MAKE) stop
 
 ps: force
 	docker compose ps

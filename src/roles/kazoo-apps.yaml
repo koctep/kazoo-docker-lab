@@ -6,3 +6,6 @@ services:
     extends:
       file: ${ROOT_DIR}/src/logging.yaml
       service: logging
+    logging:
+      options:
+        tag: kazoo

@@ -7,6 +7,6 @@ services:
     post_start:
       - command: init.sh
     volumes:
-      - ${ROOT_DIR}/docker/images/kazoo/etc/:/etc/kazoo/core/
-      - ${ROOT_DIR}/docker/services/kz/bin/:/usr/local/bin/
-      - ${ROOT_DIR}/docker/services/kz/docs/:/usr/local/kazoo/docs/
+      - ${ROOT_DIR}/src/images/kazoo/etc/:/etc/kazoo/core/
+      - ${ROOT_DIR}/src/services/kz/bin/:/usr/local/bin/
+      - ${ROOT_DIR}/src/services/kz/docs/:/usr/local/kazoo/docs/

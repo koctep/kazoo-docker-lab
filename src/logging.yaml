@@ -4,4 +4,3 @@ services:
       driver: "syslog"
       options:
         syslog-address: "udp://172.17.18.4"
-        tag: kazoo

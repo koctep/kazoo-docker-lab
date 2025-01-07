@@ -6,6 +6,6 @@ services:
     hostname: fs-devices.kz
     volumes:
       - ${ROOT_DIR}/etc/freeswitch/devices/:/etc/kazoo/freeswitch/
-      - ${ROOT_DIR}/docker/services/fs-devices/bin/:/usr/local/bin/
+      - ${ROOT_DIR}/src/services/fs-devices/bin/:/usr/local/bin/
     post_start:
       - command: wait-for-regs.sh
