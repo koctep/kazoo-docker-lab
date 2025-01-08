@@ -1,6 +1,6 @@
 services:
   role-kazoo-apps:
-    image: ${PREFIX}kazoo
+    image: ${PROJECT}-kazoo
     pre_stop:
       - command: sup init stop
     extends:

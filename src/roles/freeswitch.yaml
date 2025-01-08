@@ -1,6 +1,6 @@
 services:
   role-freeswitch:
-    image: ${PREFIX}freeswitch
+    image: ${PROJECT}-freeswitch
     pre_stop:
       - command: fs_cli -x shutdown
     extends:
