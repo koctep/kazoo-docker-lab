@@ -1,6 +1,11 @@
 services:
   syslog:
-    image: rsyslog/syslog_appliance_alpine
+    user: ${UID}:${GID}
+    build:
+      context: ${ROOT_DIR}/src/images
+      dockerfile_inline: |
+        from rsyslog/syslog_appliance_alpine
+        run chown -R ${UID}:${GID} /config
     hostname: syslog.kz
     volumes:
       - ${ROOT_DIR}/log:/log
