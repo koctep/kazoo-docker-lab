@@ -1,30 +1,36 @@
 #!/bin/sh
 
+data_dir=/usr/local/kazoo/docs
+
 (
-CURL="curl http://localhost:8000/v2"
+CURL0="curl http://localhost:8000/v2"
 CREDS=$(echo -n kazoo:kazoo | md5sum | awk '{print $1}')
-AUTH_TOKEN=$($CURL/user_auth \
+AUTH_TOKEN=$($CURL0/user_auth \
   -X PUT \
   -d"{\"data\":{\"account_name\":\"kazoo\",\"credentials\":\"$CREDS\"}}" \
   | jq -r '.auth_token')
-ACCOUNT_ID=$(jq -Rr 'split(".") | .[1] | @base64d | fromjson | .account_id' <<< $AUTH_TOKEN)
+ROOT_ACCOUNT_ID=$(jq -Rr 'split(".") | .[1] | @base64d | fromjson | .account_id' <<< $AUTH_TOKEN)
 
-$CURL/resources/pstn -H "X-Auth-Token: $AUTH_TOKEN" | jq '{data: .data}' \
-  > /usr/local/kazoo/docs/psnt.json
+#$CURL0/resources/pstn -H "X-Auth-Token: $AUTH_TOKEN" | jq '{data: .data}' \
+#  > /usr/local/kazoo/docs/pstn.json
 
-CURL=$CURL/accounts/$ACCOUNT_ID
+for acc in $($CURL0/accounts/${ROOT_ACCOUNT_ID}/descendants -H "X-Auth-Token: $AUTH_TOKEN" | jq -r '.data[].id'); do
+  CURL=$CURL0/accounts/$acc
+  mkdir -p $data_dir/$acc
+  curl localhost:8000/v2/accounts/$acc -H "X-Auth-Token: $AUTH_TOKEN" | jq '{data: .data}' > $data_dir/$acc/account.json
 
-TYPES='devices callflows users'
-for TYPE in $TYPES; do
-  dir=/usr/local/kazoo/docs/$TYPE
-  mkdir -p $dir
-  for id in $($CURL/$TYPE -H "X-Auth-Token: $AUTH_TOKEN" | jq -r '.data[].id'); do
-    doc=$($CURL/$TYPE/$id -H "X-Auth-Token: $AUTH_TOKEN" | jq '{data: .data}')
-    [ $TYPE = "users" ] \
-      && [ $(echo $doc | jq -r '.data.username') = 'kazoo' ] \
-      && echo "skip kazoo user $id" \
-      && continue
-    echo "$doc" > $dir/$id.json
+  TYPES='devices callflows users'
+  for TYPE in $TYPES; do
+    dir=$data_dir/$acc/$TYPE
+    mkdir -p $dir
+    for id in $($CURL/$TYPE -H "X-Auth-Token: $AUTH_TOKEN" | jq -r '.data[].id'); do
+      doc=$($CURL/$TYPE/$id -H "X-Auth-Token: $AUTH_TOKEN" | jq '{data: .data}')
+      [ $TYPE = "users" ] \
+        && [ $(echo $doc | jq -r '.data.username') = 'kazoo' ] \
+        && echo "skip kazoo user $id" \
+        && continue
+      echo "$doc" > $dir/$id.json
+    done
   done
 done
 )

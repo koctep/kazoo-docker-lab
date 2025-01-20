@@ -1,5 +1,7 @@
 #!/bin/sh
 
+data_dir=/usr/local/kazoo/docs
+
 [ $(hostname -f) = "kz.kz" ] || exit 2
 
 while [ $(sup kapps_controller running_apps | sed 's/,/\n/g' | wc -l) -lt 18 ]; do
@@ -8,7 +10,7 @@ while [ $(sup kapps_controller running_apps | sed 's/,/\n/g' | wc -l) -lt 18 ]; 
 done
 
 echo "kazoo started"
-sleep 10
+#sleep 10
 echo "starting initialization"
 
 sup crossbar_maintenance create_account kazoo kazoo kazoo kazoo #&& \
@@ -24,19 +26,26 @@ AUTH_TOKEN=$($CURL/user_auth \
   -X PUT \
   -d"{\"data\":{\"account_name\":\"kazoo\",\"credentials\":\"$CREDS\"}}" \
   | jq -r '.auth_token')
-ACCOUNT_ID=$(jq -Rr 'split(".") | .[1] | @base64d | fromjson | .account_id' <<< $AUTH_TOKEN)
+ROOT_ACCOUNT_ID=$(jq -Rr 'split(".") | .[1] | @base64d | fromjson | .account_id' <<< $AUTH_TOKEN)
+echo "root account id ${ROOT_ACCOUNT_ID}"
 
-$CURL/resrouces -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@/usr/local/kazoo/docs/psnt.json
+$CURL/resources -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@$data_dir/pstn.json -H
 
-CURL=$CURL/accounts/$ACCOUNT_ID
-$CURL/phone_numbers/15005005050 -X PUT -H "X-Auth-Token: $AUTH_TOKEN" | jq
-$CURL/metaflows -X POST -H "X-Auth-Token: $AUTH_TOKEN" \
-  -d'{"data":{"binding_digit":"*", "patterns":{"2(\\d+)":{"module":"transfer", "data":{"takeback_dtmf":"*1"}}}}}' | jq '.'
-
-for f in $(ls -1 /usr/local/kazoo/docs/*/*.json); do
-  TYPE=$(basename $(dirname $f))
-  DATA=@$f
-  [ $TYPE = "users" ] && DATA=$(echo $(cat $f) "{\"data\":{\"password\":\"$(pwgen)\"}}" | jq -s '.[0] * .[1]')
-  $CURL/$TYPE -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d"$DATA"  | jq
+for acc in $(ls -1 $data_dir/*/account.json); do
+  ACCOUNT_DIR=$(dirname $acc)
+  echo "processing $ACCOUNT_DIR"
+  ACCOUNT_ID=$(basename $ACCOUNT_DIR)
+  echo "creating account $ACCOUNT_ID"
+  curl localhost:8000/v2/accounts/${ROOT_ACCOUNT_ID} -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@${acc}
+  for f in $(ls -1 $ACCOUNT_DIR/*/*.json); do
+    TYPE=$(basename $(dirname $f))
+    DATA=@$f
+    [ $TYPE = "users" ] && DATA=$(echo $(cat $f) "{\"data\":{\"password\":\"$(pwgen)\"}}" | jq -s '.[0] * .[1]')
+    curl localhost:8000/v2/accounts/$ACCOUNT_ID/$TYPE \
+      -X PUT -H "X-Auth-Token: $AUTH_TOKEN" \
+      -d"$DATA" | jq
+  done
 done
+
+exit 0
 )

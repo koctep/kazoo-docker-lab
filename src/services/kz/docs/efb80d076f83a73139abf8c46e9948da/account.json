@@ -1,0 +1,77 @@
+{
+  "data": {
+    "ui_restrictions": {
+      "myaccount": {
+        "user": {
+          "show_tab": true
+        },
+        "twoway": {
+          "show_tab": true
+        },
+        "transactions": {
+          "show_tab": true
+        },
+        "service_plan": {
+          "show_tab": true
+        },
+        "outbound": {
+          "show_tab": true
+        },
+        "inbound": {
+          "show_tab": true
+        },
+        "errorTracker": {
+          "show_tab": true
+        },
+        "billing": {
+          "show_tab": true
+        },
+        "balance": {
+          "show_tab": true,
+          "show_minutes": true,
+          "show_header": true,
+          "show_credit": true
+        },
+        "account": {
+          "show_tab": true
+        }
+      }
+    },
+    "ui_metadata": {
+      "version": "4.3.0",
+      "ui": "monster-ui",
+      "origin": "myaccount"
+    },
+    "timezone": "America/Los_Angeles",
+    "ringtones": {},
+    "reseller_id": "e0c3e4249988160eb18173ec3a4884da",
+    "realm": "konami.kz",
+    "preflow": {},
+    "name": "konami.kz",
+    "music_on_hold": {},
+    "metaflows": {
+      "patterns": {
+        "2(\\d+)": {
+          "module": "transfer",
+          "data": {
+            "transfer_type": "blind",
+            "takeback_dtmf": "*1",
+            "captures": [
+              "no_match"
+            ]
+          }
+        }
+      },
+      "binding_digit": "*"
+    },
+    "is_reseller": false,
+    "descendants_count": 0,
+    "created": 63904420055,
+    "call_restriction": {},
+    "enabled": true,
+    "id": "efb80d076f83a73139abf8c46e9948da",
+    "wnm_allow_additions": false,
+    "superduper_admin": false,
+    "billing_mode": "limits_only"
+  }
+}
