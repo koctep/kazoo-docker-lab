@@ -3,13 +3,13 @@
     <!--/// account username *required* ///-->
     <param name="username" value="user_yfmyau"/>
     <!--/// auth realm: *optional* same as gateway name, if blank ///-->
-    <param name="realm" value="kazoo"/>
+    <param name="realm" value="konami.kz"/>
     <!--/// account password *required* ///-->
     <param name="password" value="kbNNSf4nsK69"/>
     <!--/// username to use in from: *optional* same as  username, if blank ///-->
     <!--<param name="from-user" value="cluecon"/>-->
     <!--/// domain to use in from: *optional* same as  realm, if blank ///-->
-    <param name="from-domain" value="kazoo"/>
+    <param name="from-domain" value="konami.kz"/>
     <!--/// extension for inbound calls: *optional* same as username, if blank ///-->
     <!--<param name="extension" value="cluecon"/>-->
     <!--/// proxy host: *optional* same as realm, if blank ///-->
