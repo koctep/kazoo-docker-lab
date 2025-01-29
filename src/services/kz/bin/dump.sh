@@ -24,7 +24,7 @@ for acc in $($CURL0/accounts/${ROOT_ACCOUNT_ID}/descendants -H "X-Auth-Token: $A
   for TYPE in $TYPES; do
     dir=$data_dir/$acc/$TYPE
     mkdir -p $dir
-    for id in $($CURL/$TYPE -H "X-Auth-Token: $AUTH_TOKEN" | jq -r '.data[].id'); do
+    for id in $($CURL/$TYPE?paginate=false -H "X-Auth-Token: $AUTH_TOKEN" | jq -r '.data[].id'); do
       doc=$($CURL/$TYPE/$id -H "X-Auth-Token: $AUTH_TOKEN" | jq '{data: .data}')
       [ $TYPE = "users" ] \
         && [ $(echo $doc | jq -r '.data.username') = 'kazoo' ] \
