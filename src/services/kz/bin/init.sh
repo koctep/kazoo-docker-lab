@@ -1,8 +1,9 @@
 #!/bin/sh
 
-data_dir=/usr/local/kazoo/docs
+data_dir=${data_dir:-/usr/local/kazoo/docs}
+START_ON_HOST=${START_ON_HOST:-kz}
 
-[ $(hostname -f) = "kz.kz" ] || exit 2
+[ $(hostname | cut -f1 -d.) = "${START_ON_HOST}" ] || exit 2
 
 while [ $(sup kapps_controller running_apps | sed 's/,/\n/g' | wc -l) -lt 18 ]; do
   echo "kazoo not started yet"
@@ -10,10 +11,10 @@ while [ $(sup kapps_controller running_apps | sed 's/,/\n/g' | wc -l) -lt 18 ]; 
 done
 
 echo "kazoo started"
-#sleep 10
+sleep 10
 echo "starting initialization"
 
-sup crossbar_maintenance create_account kazoo kazoo kazoo kazoo #&& \
+sup crossbar_maintenance create_account kazoo kazoo kazoo kazoo && \
 (
 sup kazoo_apps_maintenance start ecallmgr
 sup kazoo_apps_maintenance start konami

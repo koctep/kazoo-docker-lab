@@ -1,6 +1,6 @@
 #!/bin/sh
 
-data_dir=/usr/local/kazoo/docs
+data_dir=${data_dir:-/usr/local/kazoo/docs}
 
 (
 CURL0="curl http://localhost:8000/v2"
