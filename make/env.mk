@@ -47,3 +47,9 @@ stop: force
 
 ps: force
 	$(docker) ps
+
+reinit: force
+	docker compose stop kz couchdb || exit 0
+	docker compose rm -f couchdb || exit 0
+	docker compose create couchdb kz
+	docker compose start couchdb kz
