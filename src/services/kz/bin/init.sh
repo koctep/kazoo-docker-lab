@@ -35,7 +35,7 @@ $CURL/resources -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@$data_dir/pstn.json -H
 for acc in $(ls -1 $data_dir/*/account.json); do
   ACCOUNT_DIR=$(dirname $acc)
   echo "processing $ACCOUNT_DIR"
-  ACCOUNT_ID=$(basename $ACCOUNT_DIR)
+  ACCOUNT_ID=$(cat ${acc} | jq -r '.data.id')
   echo "creating account $ACCOUNT_ID"
   curl localhost:8000/v2/accounts/${ROOT_ACCOUNT_ID} -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@${acc}
   for f in $(ls -1 $ACCOUNT_DIR/*/*.json); do
