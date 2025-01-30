@@ -9,5 +9,5 @@ include:
   - ./src/services/amqp.yaml
   - ./src/services/kama.yaml
   - ./src/services/kz.yaml
-  - ./src/services/fs-kz.yaml
+  - ./src/services/fs-1.yaml
   - ./src/services/fs-devices.yaml

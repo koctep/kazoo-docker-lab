@@ -14,12 +14,19 @@ echo "kazoo started"
 sleep 10
 echo "starting initialization"
 
-sup crossbar_maintenance create_account kazoo kazoo kazoo kazoo && \
+sup crossbar_maintenance create_account kazoo kazoo kazoo kazoo #&& \
 (
 sup kazoo_apps_maintenance start ecallmgr
 sup kazoo_apps_maintenance start konami
-sup ecallmgr_maintenance add_fs_node freeswitch@fs-kz.kz
 sup crossbar_maintenance init_apps /var/www/html/monster-ui/apps
+i=1
+while : ; do
+  echo "trying fs-$i"
+  output=$(host fs-$i)
+  [ ! $? -eq 0 ] && break
+  sup ecallmgr_maintenance add_fs_node freeswitch@$(echo "$output" | awk '{print $4}')
+  i=$(($i + 1))
+done
 
 CURL="curl http://localhost:8000/v2"
 CREDS=$(echo -n kazoo:kazoo | md5sum | awk '{print $1}')
