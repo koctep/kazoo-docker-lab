@@ -28,12 +28,12 @@ for acc in $($CURL0/accounts/${ROOT_ACCOUNT_ID}/descendants -H "X-Auth-Token: $A
       doc=$($CURL/$TYPE/$id -H "X-Auth-Token: $AUTH_TOKEN" | jq '{data: .data}')
       [ $TYPE = "users" ] \
         && [ $(echo $doc | jq -r '.data.username') = 'kazoo' ] \
-        && echo "skip kazoo user $id" \
+        && echo "skip kazoo user $id" >&2 \
         && continue
       echo "$doc" > $dir/$id.json
     done
   done
-  echo "renaming to $(jq -r '.data.name' $data_dir/$acc/account.json)"
+  echo "renaming to $(jq -r '.data.name' $data_dir/$acc/account.json)" >&2
   mv $data_dir/$acc $data_dir/$(jq -r '.data.name' $data_dir/$acc/account.json)
 done
 )
