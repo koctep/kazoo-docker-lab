@@ -33,6 +33,7 @@ for acc in $($CURL0/accounts/${ROOT_ACCOUNT_ID}/descendants -H "X-Auth-Token: $A
       echo "$doc" > $dir/$id.json
     done
   done
+  echo "renaming to $(jq -r '.data.name' $data_dir/$acc/account.json)"
+  mv $data_dir/$acc $data_dir/$(jq -r '.data.name' $data_dir/$acc/account.json)
 done
 )
-
