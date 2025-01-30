@@ -4,7 +4,7 @@
       "no_match"
     ],
     "flow": {
-      "module": "offnet",
+      "module": "resources",
       "data": {
         "caller_id_type": "external",
         "ignore_early_media": false,

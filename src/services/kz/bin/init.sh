@@ -30,8 +30,6 @@ AUTH_TOKEN=$($CURL/user_auth \
 ROOT_ACCOUNT_ID=$(jq -Rr 'split(".") | .[1] | @base64d | fromjson | .account_id' <<< $AUTH_TOKEN)
 echo "root account id ${ROOT_ACCOUNT_ID}"
 
-$CURL/resources -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@$data_dir/pstn.json -H
-
 for acc in $(ls -1 $data_dir/*/account.json); do
   ACCOUNT_DIR=$(dirname $acc)
   echo "processing $ACCOUNT_DIR"

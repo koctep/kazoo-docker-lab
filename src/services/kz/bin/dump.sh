@@ -20,7 +20,7 @@ for acc in $($CURL0/accounts/${ROOT_ACCOUNT_ID}/descendants -H "X-Auth-Token: $A
   mkdir -p $data_dir/$acc
   curl localhost:8000/v2/accounts/$acc -H "X-Auth-Token: $AUTH_TOKEN" | jq '{data: .data}' > $data_dir/$acc/account.json
 
-  TYPES='devices callflows users'
+  TYPES='devices callflows users resources'
   for TYPE in $TYPES; do
     dir=$data_dir/$acc/$TYPE
     mkdir -p $dir
