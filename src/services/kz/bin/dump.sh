@@ -12,8 +12,6 @@ AUTH_TOKEN=$($CURL0/user_auth \
 ROOT_ACCOUNT_ID=$(jq -Rr 'split(".") | .[1] | @base64d | fromjson | .account_id' <<< $AUTH_TOKEN)
 
 mkdir -p $data_dir
-$CURL0/resources/pstn -H "X-Auth-Token: $AUTH_TOKEN" | jq '{data: .data}' \
-  > $data_dir/pstn.json
 
 for acc in $($CURL0/accounts/${ROOT_ACCOUNT_ID}/descendants -H "X-Auth-Token: $AUTH_TOKEN" | jq -r '.data[].id'); do
   CURL=$CURL0/accounts/$acc
