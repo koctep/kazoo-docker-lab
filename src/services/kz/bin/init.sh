@@ -51,7 +51,7 @@ for acc in $(ls -1 $data_dir/*/account.json); do
       && DATA=$(echo $(cat $f) "{\"data\":{\"password\":\"$(pwgen)\"}}" | jq -s '.[0] * .[1]')
     curl localhost:8000/v2/accounts/$ACCOUNT_ID/$TYPE \
       -X PUT -H "X-Auth-Token: $AUTH_TOKEN" \
-      -d"$DATA" | jq
+      -d"$DATA" | jq '.data'
   done
 done
 
