@@ -1,6 +1,8 @@
 services:
   role-kazoo-apps:
     image: ${PROJECT}-kazoo
+    environment:
+      FS_NODE_DOMAIN: kz
     pre_stop:
       - command: sup init stop
     extends:

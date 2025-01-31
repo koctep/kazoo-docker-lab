@@ -2,6 +2,7 @@
 
 data_dir=${data_dir:-/usr/local/kazoo/docs}
 START_ON_HOST=${START_ON_HOST:-kz}
+FS_NODE_DOMAIN=${FS_NODE_DOMAIN:-}
 
 [ $(hostname | cut -f1 -d.) = "${START_ON_HOST}" ] || exit 2
 
@@ -14,7 +15,7 @@ echo "kazoo started"
 sleep 10
 echo "starting initialization"
 
-sup crossbar_maintenance create_account kazoo kazoo kazoo kazoo #&& \
+sup crossbar_maintenance create_account kazoo kazoo kazoo kazoo && \
 (
 sup kazoo_apps_maintenance start ecallmgr
 sup kazoo_apps_maintenance start konami
@@ -24,7 +25,9 @@ while : ; do
   echo "trying fs-$i"
   output=$(host fs-$i)
   [ ! $? -eq 0 ] && break
-  sup ecallmgr_maintenance add_fs_node freeswitch@$(echo "$output" | awk '{print $4}')
+  hostname=fs-$i.$FS_NODE_DOMAIN
+  [ -z "$FS_NODE_DOMAIN" ] && hostname=$(echo "$output" | awk '{print $4}')
+  sup ecallmgr_maintenance add_fs_node freeswitch@$hostname
   i=$(($i + 1))
 done
 
