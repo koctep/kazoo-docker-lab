@@ -1,0 +1,24 @@
+<!-- http://wiki.freeswitch.org/wiki/Dialplan_XML -->
+<include>
+  <context name="context_2">
+
+    <extension name="unloop">
+      <condition field="${unroll_loops}" expression="^true$"/>
+      <condition field="${sip_looped_call}" expression="^true$">
+        <action application="deflect" data="${destination_number}"/>
+      </condition>
+    </extension>
+
+    <extension name="outside_call" continue="true">
+      <condition>
+        <action application="set" data="inside_call=true" inline="true"/>
+        <action application="export" data="RFC2822_DATE=${strftime(%a, %d %b %Y %T %z)}" inline="true"/>
+        <!--<action application="set" data="effective_caller_id_name=${sip_to_user}" inline="true"/>-->
+      </condition>
+    </extension>
+
+    <!-- Following files are not loaded because content is not included in <include> tag -->
+    <X-PRE-PROCESS cmd="exec" data="cat /etc/kazoo/freeswitch/dialplan/$(hostname | cut -f1 -d.).xml" />
+
+  </context>
+</include>

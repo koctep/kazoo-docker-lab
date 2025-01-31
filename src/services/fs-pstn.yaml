@@ -4,8 +4,12 @@ services:
       file: ${ROOT_DIR}/src/roles/freeswitch.yaml
       service: role-freeswitch
     hostname: fs-pstn.kz
+    post_start:
+      - command: sleep 10
+      - command: init.sh
     volumes:
-      - ${ROOT_DIR}/etc/freeswitch/pstn:/etc/kazoo/freeswitch
+      - ${ROOT_DIR}/etc/freeswitch/dialplan/:/etc/kazoo/freeswitch/dialplan/
+      - ${ROOT_DIR}/src/services/fs-pstn/bin/:/usr/local/bin/
     networks:
       default:
         ipv4_address: 172.17.18.2

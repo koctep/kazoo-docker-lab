@@ -57,6 +57,5 @@ for acc in $(ls -1 $data_dir/*/account.json); do
       -d"$DATA" | jq '.data'
   done
 done
-
-exit 0
 )
+exit 0

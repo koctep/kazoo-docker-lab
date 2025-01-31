@@ -9,7 +9,7 @@
         "endpoint_type": "sip",
         "force_port": false,
         "invite_format": "route",
-        "port": 5060,
+        "port": 11000,
         "skype_rr": true
       }
     ],
