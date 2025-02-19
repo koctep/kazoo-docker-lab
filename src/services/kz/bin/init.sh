@@ -3,7 +3,7 @@
 data_dir=${data_dir:-/usr/local/kazoo/docs}
 START_ON_HOST=${START_ON_HOST:-kz}
 FS_NODE_DOMAIN=${FS_NODE_DOMAIN:-}
-URL=${URL:-http://localhost:8000/v2}
+URL=${URL:-http://localhost:8000}
 CREDS=${CREDS:-$(echo -n kazoo:kazoo | md5sum | awk '{print $1}')}
 ACCOUNT_NAME=${ACCOUNT_NAME:-kazoo}
 
