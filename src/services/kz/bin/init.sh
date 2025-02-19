@@ -57,12 +57,14 @@ for acc in $(ls -1 $data_dir/*/account.json); do
   echo "creating account $ACCOUNT_ID"
   curl localhost:8000/v2/accounts/${ROOT_ACCOUNT_ID} -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@${acc}
   for f in $(ls -1 $ACCOUNT_DIR/*/*.json); do
-    TYPE=$(basename $(dirname $f))
+    TYPE_DIR=$(basename $(dirname $f))
+    TYPE=$(echo $TYPE_DIR | sed 's/^[0-9]*-*//g')
     DATA=@$f
+    URL_PATH=$(jq -r ".path // '$TYPE'" $f)
     [ $TYPE = "users" ] \
       && [ ! $(cat $f | jq '.data.username') = "null" ] \
       && DATA=$(echo $(cat $f) "{\"data\":{\"password\":\"$(pwgen)\"}}" | jq -s '.[0] * .[1]')
-    curl localhost:8000/v2/accounts/$ACCOUNT_ID/$TYPE \
+    curl localhost:8000/v2/accounts/$ACCOUNT_ID/$URL_PATH \
       -X PUT -H "X-Auth-Token: $AUTH_TOKEN" \
       -d"$DATA" | jq '.data'
   done
