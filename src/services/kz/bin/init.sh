@@ -60,7 +60,7 @@ for acc in $(ls -1 $data_dir/*/account.json); do
     TYPE_DIR=$(basename $(dirname $f))
     TYPE=$(echo $TYPE_DIR | sed 's/^[0-9]*-*//g')
     DATA=@$f
-    URL_PATH=$(jq -r ".path // '$TYPE'" $f)
+    URL_PATH=$(jq -r ".path // \"$TYPE\"" $f)
     [ $TYPE = "users" ] \
       && [ ! $(cat $f | jq '.data.username') = "null" ] \
       && DATA=$(echo $(cat $f) "{\"data\":{\"password\":\"$(pwgen)\"}}" | jq -s '.[0] * .[1]')
