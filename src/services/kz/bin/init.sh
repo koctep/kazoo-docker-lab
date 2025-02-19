@@ -45,6 +45,9 @@ for file in $(ls -1 $data_dir/system_configs/*.json); do
   $CURL0/system_configs/$conf -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@${file}
 done
 
+sup kapps_controller restart_app crossbar
+sleep 5
+
 for acc in $(ls -1 $data_dir/*/account.json); do
   ACCOUNT_DIR=$(dirname $acc)
   echo "processing $ACCOUNT_DIR"
