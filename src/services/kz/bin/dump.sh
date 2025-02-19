@@ -1,7 +1,7 @@
 #!/bin/bash
 
 data_dir=${data_dir:-/usr/local/kazoo/docs}
-URL=${URL:-http://localhost:8000/v2}
+URL=${URL:-http://localhost:8000}
 CREDS=${CREDS:-$(echo -n kazoo:kazoo | md5sum | awk '{print $1}')}
 ACCOUNT_NAME=${ACCOUNT_NAME:-kazoo}
 
