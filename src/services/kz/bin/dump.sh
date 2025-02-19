@@ -24,9 +24,10 @@ for acc in $($CURL0/accounts/${ROOT_ACCOUNT_ID}/descendants -H "X-Auth-Token: $A
   mkdir -p $data_dir/$acc
   curl localhost:8000/v2/accounts/$acc -H "X-Auth-Token: $AUTH_TOKEN" | jq '{data: .data}' > $data_dir/$acc/account.json
 
-  TYPES="devices callflows users resources $ADD_TYPES"
-  for TYPE in $TYPES; do
-    dir=$data_dir/$acc/$TYPE
+  DIRS="00-users 10-devices 20-resources 90-callflows $ADD_TYPES"
+  for TYPE_DIR in $DIRS; do
+    TYPE=$(echo $TYPE_DIR | sed 's/^[0-9]*-*//g')
+    dir=$data_dir/$acc/$TYPE_DIR
     mkdir -p $dir
     for id in $($CURL/$TYPE?paginate=false -H "X-Auth-Token: $AUTH_TOKEN" | jq -r '.data[].id'); do
       doc=$($CURL/$TYPE/$id -H "X-Auth-Token: $AUTH_TOKEN" | jq '{data: .data}')
