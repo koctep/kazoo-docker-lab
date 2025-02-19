@@ -20,8 +20,6 @@ echo "starting initialization"
 
 sup crossbar_maintenance create_account kazoo kazoo kazoo kazoo && \
 (
-sup kazoo_apps_maintenance start ecallmgr
-sup kazoo_apps_maintenance start konami
 sup crossbar_maintenance init_apps /var/www/html/monster-ui/apps
 i=1
 while : ; do
