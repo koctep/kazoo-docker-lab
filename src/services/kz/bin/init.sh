@@ -1,8 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 data_dir=${data_dir:-/usr/local/kazoo/docs}
 START_ON_HOST=${START_ON_HOST:-kz}
 FS_NODE_DOMAIN=${FS_NODE_DOMAIN:-}
+URL=${URL:-http://localhost:8000/v2}
+CREDS=${CREDS:-$(echo -n kazoo:kazoo | md5sum | awk '{print $1}')}
+ACCOUNT_NAME=${ACCOUNT_NAME:-kazoo}
 
 [ $(hostname | cut -f1 -d.) = "${START_ON_HOST}" ] || exit 2
 
@@ -31,14 +34,18 @@ while : ; do
   i=$(($i + 1))
 done
 
-CURL="curl http://localhost:8000/v2"
-CREDS=$(echo -n kazoo:kazoo | md5sum | awk '{print $1}')
+CURL="curl $URL/v2"
 AUTH_TOKEN=$($CURL/user_auth \
   -X PUT \
-  -d"{\"data\":{\"account_name\":\"kazoo\",\"credentials\":\"$CREDS\"}}" \
+  -d"{\"data\":{\"account_name\":\"${ACCOUNT_NAME}\",\"credentials\":\"$CREDS\"}}" \
   | jq -r '.auth_token')
 ROOT_ACCOUNT_ID=$(jq -Rr 'split(".") | .[1] | @base64d | fromjson | .account_id' <<< $AUTH_TOKEN)
 echo "root account id ${ROOT_ACCOUNT_ID}"
+
+for file in $(ls -1 $data_dir/system_configs/*.json); do
+  conf=$(basename $file .json)
+  $CURL0/system_configs/$conf -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@${file}
+done
 
 for acc in $(ls -1 $data_dir/*/account.json); do
   ACCOUNT_DIR=$(dirname $acc)
@@ -57,6 +64,5 @@ for acc in $(ls -1 $data_dir/*/account.json); do
       -d"$DATA" | jq '.data'
   done
 done
-
-exit 0
 )
+exit 0

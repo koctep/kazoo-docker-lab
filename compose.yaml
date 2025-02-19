@@ -11,3 +11,4 @@ include:
   - ./src/services/kz.yaml
   - ./src/services/fs-1.yaml
   - ./src/services/fs-devices.yaml
+  - ./src/services/fs-pstn.yaml

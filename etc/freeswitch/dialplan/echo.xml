@@ -1,0 +1,13 @@
+  <extension name="echo">
+    <condition field="destination_number" expression=".*">
+      <action application="log" data="INFO inbound echo"/>
+      <action application="sched_hangup" data="+10" />
+      <action application="ring_ready" />
+      <action application="sleep" data="2000"/>
+      <action application="answer"/>
+      <!--
+      <action application="playback" data="local_stream://default"/>
+      -->
+      <action application="echo"/>
+    </condition>
+  </extension>
