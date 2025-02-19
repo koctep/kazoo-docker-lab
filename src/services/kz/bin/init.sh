@@ -21,6 +21,8 @@ echo "starting initialization"
 sup crossbar_maintenance create_account kazoo kazoo kazoo kazoo && \
 (
 sup crossbar_maintenance init_apps /var/www/html/monster-ui/apps
+sup kapps_controller start_app ecallmgr
+
 i=1
 while : ; do
   echo "trying fs-$i"
@@ -42,7 +44,7 @@ echo "root account id ${ROOT_ACCOUNT_ID}"
 
 for file in $(ls -1 $data_dir/system_configs/*.json); do
   conf=$(basename $file .json)
-  $CURL0/system_configs/$conf -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@${file}
+  $CURL/system_configs/$conf -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@${file}
 done
 
 sup kapps_controller restart_app crossbar
