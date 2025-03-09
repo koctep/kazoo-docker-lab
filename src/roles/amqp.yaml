@@ -4,6 +4,8 @@ services:
     extends:
       file: ${ROOT_DIR}/src/logging.yaml
       service: logging
+    volumes:
+      - ${ROOT_DIR}/etc/rabbitmq:/etc/rabbitmq
     logging:
       options:
         tag: amqp

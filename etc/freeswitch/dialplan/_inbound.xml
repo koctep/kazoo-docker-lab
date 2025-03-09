@@ -1,6 +1,6 @@
 <!-- http://wiki.freeswitch.org/wiki/Dialplan_XML -->
 <include>
-  <context name="context_2">
+  <context name="inbound">
 
     <extension name="unloop">
       <condition field="${unroll_loops}" expression="^true$"/>

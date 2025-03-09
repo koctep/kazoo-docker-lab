@@ -4,3 +4,6 @@ services:
       file: ${ROOT_DIR}/src/roles/kamailio.yaml
       service: role-kamailio
     hostname: kama.kz
+    networks:
+      default:
+        ipv4_address: 172.17.18.3

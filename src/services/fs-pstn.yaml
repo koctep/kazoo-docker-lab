@@ -9,6 +9,7 @@ services:
       - command: init.sh
     volumes:
       - ${ROOT_DIR}/etc/freeswitch/dialplan/:/etc/kazoo/freeswitch/dialplan/
+      - ${ROOT_DIR}/etc/freeswitch/sipinterface_1.xml:/etc/kazoo/freeswitch/sip_profiles/sipinterface_1.xml
       - ${ROOT_DIR}/src/services/fs-pstn/bin/:/usr/local/bin/
     networks:
       default:

@@ -44,7 +44,7 @@
     },
     "timezone": "America/Los_Angeles",
     "ringtones": {},
-    "reseller_id": "b416ca426d139ed51fcdf57b86616152",
+    "reseller_id": "362ba7a245896bf5562e2bbe5e872eb2",
     "realm": "konami.kz",
     "preflow": {},
     "name": "konami.kz",
@@ -60,13 +60,23 @@
               "no_match"
             ]
           }
+        },
+        "35": {
+          "module": "intercept",
+          "data": {
+            "target_id": "508a6c84e0b5ed1e70d32229410185a8",
+            "target_type": "user",
+            "unbridged_only": false,
+            "auto_answer": false,
+            "can_call_self": true
+          }
         }
       },
       "binding_digit": "*"
     },
     "is_reseller": false,
     "descendants_count": 0,
-    "created": 63905572863,
+    "created": 63907544503,
     "call_restriction": {},
     "enabled": true,
     "id": "efb80d076f83a73139abf8c46e9948da",
