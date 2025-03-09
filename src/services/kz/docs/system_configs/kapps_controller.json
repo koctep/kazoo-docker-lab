@@ -1,0 +1,30 @@
+{
+  "data": {
+    "default": {
+      "kapps": [
+        "konami",
+        "ecallmgr",
+        "blackhole",
+        "callflow",
+        "cdr",
+        "conference",
+        "crossbar",
+        "fax",
+        "hangups",
+        "media_mgr",
+        "milliwatt",
+        "omnipresence",
+        "pivot",
+        "registrar",
+        "reorder",
+        "stepswitch",
+        "sysconf",
+        "tasks",
+        "teletype",
+        "trunkstore",
+        "webhooks"
+      ]
+    },
+    "id": "kapps_controller"
+  }
+}

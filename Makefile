@@ -6,7 +6,10 @@ include make/env.mk
 
 FROM ?= ext1000
 TO ?= 1001
-ORIGINATE_CMD = bgapi originate sofia/gateway/device.$(FROM)/$(TO)@kama.kz play XML inbound
+CONTEXT ?= inbound
+CALLBACK ?= play
+CALL_VARS ?= absolute_codec_string=PCMU
+ORIGINATE_CMD = bgapi originate {$(CALL_VARS)}sofia/gateway/device.$(FROM)/$(TO)@kama.kz;fs_path=sip:172.17.18.3 $(CALLBACK) XML $(CONTEXT)
 
 TEST ?= internal-calls
 include tests/$(TEST).mk
@@ -16,7 +19,7 @@ wait-for-regs: start force
 	$(MAKE) connect/fs-devices RUN='wait-for-regs.sh'
 
 device/originate: force
-	$(docker) exec fs-devices $(ORIGINATE_CMD)
+	$(docker) exec fs-devices fs_cli -x '$(ORIGINATE_CMD)'
 
 connect/fs-devices: RUN = fs_cli
 connect/%: RUN = bash

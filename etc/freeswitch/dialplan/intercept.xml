@@ -1,0 +1,29 @@
+<!-- http://wiki.freeswitch.org/wiki/Dialplan_XML -->
+<include>
+  <context name="intercept">
+
+    <extension name="unloop">
+      <condition field="${unroll_loops}" expression="^true$"/>
+      <condition field="${sip_looped_call}" expression="^true$">
+        <action application="deflect" data="${destination_number}"/>
+      </condition>
+    </extension>
+
+    <extension name="outside_call" continue="true">
+      <condition>
+        <action application="set" data="inside_call=true" inline="true"/>
+        <action application="export" data="RFC2822_DATE=${strftime(%a, %d %b %Y %T %z)}" inline="true"/>
+      </condition>
+    </extension>
+
+    <!-- Following files are not loaded because content is not included in <include> tag -->
+    <extension name="intercept" continue="true">
+      <condition>
+        <action application="sleep" data="5000"/>
+        <action application="send_dtmf" data="*35"/>
+        <action application="sleep" data="15000"/>
+      </condition>
+    </extension>
+
+  </context>
+</include>

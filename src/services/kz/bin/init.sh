@@ -47,6 +47,7 @@ for file in $(ls -1 $data_dir/system_configs/*.json); do
   $CURL/system_configs/$conf -X PUT -H "X-Auth-Token: $AUTH_TOKEN" -d@${file}
 done
 
+sup kapps_controller restart_app kazoo_apps
 sup kapps_controller restart_app crossbar
 sleep 5
 
