@@ -1,0 +1,20 @@
+services:
+  role-kazoo-apps:
+    extends:
+      file: ${ROOT_DIR}/src/roles/kazoo-apps-base.yaml
+      service: role-kazoo-apps-base
+    build:
+      context: ${ROOT_DIR}/src/images
+      dockerfile_inline: |
+        from ${PROJECT}-kazoo
+        run yum install -y wget epel-release make ncurses-devel openssl openssl-devel gcc gcc-c++ \
+                          java-1.6.0-openjdk java-1.6.0-openjdk-devel unixODBC-devel libxslt nc zip unzip \
+                          libxml2-devel expat-devel wget \
+                          https://repo.ius.io/ius-release-el7.rpm
+        run yum install -y git236 \
+                          https://packages.erlang-solutions.com/erlang/rpm/centos/7/x86_64/esl-erlang_19.3.6.13-1~centos~7_amd64.rpm
+    command: /home/kazoo/_rel/kazoo/bin/kazoo foreground
+    volumes:
+      - ${KZ_SRC}:/home/kazoo
+      - ${ROOT_DIR}/etc/kazoo/config.ini:/etc/kazoo/core/config.ini
+      - ${ROOT_DIR}/etc/kazoo/sys.config:/home/kazoo/rel/dev.sys.config

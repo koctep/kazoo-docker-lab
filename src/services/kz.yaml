@@ -1,9 +1,11 @@
 services:
   kz:
     extends:
-      file: ${ROOT_DIR}/src/roles/kazoo-apps.yaml
+      file: ${ROOT_DIR}/src/roles/${KZ_ROLE}.yaml
       service: role-kazoo-apps
     hostname: kz.kz
+    ports:
+      - "8000:8000"
     post_start:
       - command: init.sh
     volumes:

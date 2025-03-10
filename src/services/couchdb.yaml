@@ -4,3 +4,4 @@ services:
       file: ${ROOT_DIR}/src/roles/couchdb.yaml
       service: role-couchdb
     hostname: db.kz
+    user: ${UID}:${GID}
