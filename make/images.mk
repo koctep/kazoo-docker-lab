@@ -16,7 +16,10 @@ image-create/$(BASE_IMAGE): force
 	docker inspect $(BASE_IMAGE) >/dev/null || docker build -t $(BASE_IMAGE) src/images/base
 image-create/%: image-create/$(BASE_IMAGE) force
 	docker inspect $(PROJECT)-$* >/dev/null || \
-	docker build --build-arg BASE_IMAGE=$(BASE_IMAGE) -t $(PROJECT)-$* src/images/$*
+	docker build \
+	  --build-arg KZ_UID=$(shell id -u) \
+	  --build-arg BASE_IMAGE=$(BASE_IMAGE) \
+	  -t $(PROJECT)-$* src/images/$*
 
 image-rm/%: force
 	docker image rm -f $(PROJECT)-$* || exit 0

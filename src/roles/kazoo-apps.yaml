@@ -1,13 +1,9 @@
 services:
   role-kazoo-apps:
-    image: ${PROJECT}-kazoo
-    environment:
-      FS_NODE_DOMAIN: kz
-    pre_stop:
-      - command: sup init stop
     extends:
-      file: ${ROOT_DIR}/src/logging.yaml
-      service: logging
-    logging:
-      options:
-        tag: kazoo
+      file: ${ROOT_DIR}/src/roles/kazoo-apps-base.yaml
+      service: role-kazoo-apps-base
+    image: ${PROJECT}-kazoo
+    volumes:
+      - ${ROOT_DIR}/etc/kazoo/config.ini:/etc/kazoo/core/config.ini
+      - ${ROOT_DIR}/etc/kazoo/sys.config:/etc/kazoo/core/sys.config

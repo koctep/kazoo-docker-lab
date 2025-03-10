@@ -9,7 +9,7 @@ ACCOUNT_NAME=${ACCOUNT_NAME:-kazoo}
 
 [ $(hostname | cut -f1 -d.) = "${START_ON_HOST}" ] || exit 2
 
-while [ $(sup kapps_controller running_apps | sed 's/,/\n/g' | wc -l) -lt 18 ]; do
+while [ $(sup kapps_controller running_apps | sed 's/,/\n/g' | wc -l) -lt 17 ]; do
   echo "kazoo not started yet"
   sleep 1
 done
