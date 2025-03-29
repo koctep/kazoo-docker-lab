@@ -1,0 +1,87 @@
+{
+  "data": {
+    "sip": {
+      "method": "password",
+      "invite_format": "contact",
+      "username": "user_bv7m36",
+      "password": "nMAbzZNP5gXS",
+      "expire_seconds": 360
+    },
+    "enabled": true,
+    "ringtones": {},
+    "ignore_completed_elsewhere": true,
+    "call_restriction": {
+      "closed_groups": {
+        "action": "inherit"
+      },
+      "tollfree_us": {
+        "action": "inherit"
+      },
+      "toll_us": {
+        "action": "inherit"
+      },
+      "emergency": {
+        "action": "inherit"
+      },
+      "caribbean": {
+        "action": "inherit"
+      },
+      "did_us": {
+        "action": "inherit"
+      },
+      "international": {
+        "action": "inherit"
+      },
+      "unknown": {
+        "action": "inherit"
+      }
+    },
+    "media": {
+      "audio": {
+        "codecs": [
+          "PCMU",
+          "PCMA"
+        ]
+      },
+      "video": {
+        "codecs": []
+      },
+      "fax": {
+        "option": "false"
+      },
+      "fax_option": false,
+      "webrtc": false,
+      "encryption": {
+        "methods": [],
+        "enforce_security": false
+      }
+    },
+    "contact_list": {
+      "exclude": false
+    },
+    "call_forward": {
+      "enabled": false,
+      "direct_calls_only": false,
+      "failover": false,
+      "ignore_early_media": true,
+      "keep_caller_id": true,
+      "require_keypress": true,
+      "substitute": true
+    },
+    "music_on_hold": {},
+    "device_type": "softphone",
+    "name": "ext1003",
+    "outbound_flags": [],
+    "suppress_unregister_notifications": false,
+    "ui_metadata": {
+      "version": "4.3.0",
+      "ui": "monster-ui",
+      "origin": "callflows"
+    },
+    "exclude_from_queues": false,
+    "mwi_unsolicited_updates": true,
+    "register_overwrite_notify": false,
+    "owner_id": "cf486e27cfd7d21df996d5fcc93dcb86",
+    "id": "093475aff30fbf5393f8e3f4f12994d0"
+  }
+}
