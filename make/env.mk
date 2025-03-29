@@ -27,6 +27,7 @@ endif
 		echo "      file: ${ROOT_DIR}/src/roles/$(KZ_ROLE).yaml" >> $@; \
 		echo "      service: role-kazoo-apps" >> $@; \
 		echo "    hostname: $$h.kz" >> $@; \
+		echo "    depends_on: [\"kz\"]" >> $@; \
 	done
 
 env: images-create .env $(ADD_YAML)
@@ -60,3 +61,14 @@ reinit: force
 	docker compose rm -f couchdb || exit 0
 	docker compose create couchdb kz
 	docker compose start couchdb kz
+
+dev: force
+	docker run \
+		-it \
+		--rm \
+		--hostname kz-t.kz \
+		--network $(PROJECT)_default \
+		-u $$(id -u):$$(id -g) \
+		-e HOME=/home/kazoo \
+		--volumes-from $(PROJECT)-kz-1 \
+		$(PROJECT)-kz /bin/bash
