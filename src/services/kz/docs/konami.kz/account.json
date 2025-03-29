@@ -44,12 +44,13 @@
     },
     "timezone": "America/Los_Angeles",
     "ringtones": {},
-    "reseller_id": "362ba7a245896bf5562e2bbe5e872eb2",
     "realm": "konami.kz",
     "preflow": {},
     "name": "konami.kz",
     "music_on_hold": {},
     "metaflows": {
+      "binding_digit": "*",
+      "listen_on": "both",
       "patterns": {
         "2(\\d+)": {
           "module": "transfer",
@@ -71,12 +72,10 @@
             "can_call_self": true
           }
         }
-      },
-      "binding_digit": "*"
+      }
     },
     "is_reseller": false,
     "descendants_count": 0,
-    "created": 63907544503,
     "call_restriction": {},
     "enabled": true,
     "id": "efb80d076f83a73139abf8c46e9948da",
